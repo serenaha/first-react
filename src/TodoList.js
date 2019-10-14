@@ -1,4 +1,6 @@
 import React,{ Component,Fragment}from 'react'
+import './style.css';
+import TodoItem from './TodoItem';
 class TodoList extends Component{
     constructor(props){
         //构造函数,最优先执行的函数
@@ -11,8 +13,11 @@ class TodoList extends Component{
     render(){
         return (
             <Fragment>
+             {/*这是JSX语法的注释*/}
                 <div>
-                    <input 
+                <label htmlFor="insertArea">输入内容</label>
+                    <input className="input"
+                       id="insertArea"
                       value={this.state.inputValue} 
                       onChange={this.handleInputChange.bind(this)}
                     />
@@ -21,10 +26,22 @@ class TodoList extends Component{
                 <ul>
                     {
                         this.state.list.map((item,index)=>{
-                            return <li 
-                                key={index} 
-                                onClick={this.handleDelete.bind(this,index)}
-                            >{item}</li>
+                            return (
+                                <Fragment>
+                                    <TodoItem 
+                                    content={item} 
+                                    index={index}
+                                    deleteItem={this.handleDelete.bind(this)}
+                                    />
+                                        {/* <li 
+                                            key={index} 
+                                            onClick={this.handleDelete.bind(this,index)}
+                                            dangerouslySetInnerHTML={{__html:item}}
+                                        ></li> */}
+                                </Fragment>
+                            )
+                           
+                            
                         })
                     }
                 </ul>
