@@ -9,6 +9,9 @@ class TodoList extends Component{
             inputValue:'',
             list:[],
         }
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleBtnClick = this.handleBtnClick.bind(this);
     }
     render(){
         return (
@@ -19,58 +22,75 @@ class TodoList extends Component{
                     <input className="input"
                        id="insertArea"
                       value={this.state.inputValue} 
-                      onChange={this.handleInputChange.bind(this)}
+                      onChange={this.handleInputChange}
                     />
-                    <button onClick={this.handleBtnClick.bind(this)}>提交</button>
+                    <button onClick={this.handleBtnClick}>提交</button>
                 </div>
                 <ul>
-                    {
-                        this.state.list.map((item,index)=>{
-                            return (
-                                <Fragment>
-                                    <TodoItem 
-                                    content={item} 
-                                    index={index}
-                                    deleteItem={this.handleDelete.bind(this)}
-                                    />
-                                        {/* <li 
-                                            key={index} 
-                                            onClick={this.handleDelete.bind(this,index)}
-                                            dangerouslySetInnerHTML={{__html:item}}
-                                        ></li> */}
-                                </Fragment>
-                            )
-                           
-                            
-                        })
-                    }
+                   {this.getTodoItem()}
                 </ul>
             </Fragment>
         )
     }
+    getTodoItem(){
+        return this.state.list.map((item,index)=>{
+                return (
+                    <Fragment key={index}>
+                        <TodoItem 
+                        content={item} 
+                        index={index}
+                        deleteItem={this.handleDelete}
+                        />
+                    </Fragment>
+                )
+            })
+    }
     handleInputChange(event){
+        const value = event.target.value;
+        this.setState(()=>({
+                inputValue:value
+        }))
         //react中改变state中的值用setState这个方法,
         //用bind（this）对函数的作用域进行变更
-        this.setState({
-            inputValue:event.target.value
-        })
+        // this.setState({
+        //     inputValue:event.target.value
+        // })
     }
     handleBtnClick(){
         //展开运算符
-        this.setState({
-            list:[...this.state.list,this.state.inputValue],
+        this.setState((prevState)=>({
+            list:[...prevState.list,prevState.inputValue],
             inputValue:''
-        })
+        }))
+        // this.setState({
+        //     list:[...this.state.list,this.state.inputValue],
+        //     inputValue:''
+        // })
     }
     handleDelete(index){
         // console.log(index);
         //immutable
         //state不允许我们做任何的改变
-        const list = [...this.state.list];//展开运算符
-        list.splice(index,1)
-        this.setState({
-            list:list
+        this.setState((prevState)=>{
+            const list = [...prevState.list];
+            list.splice(index,1)
+           return  {list}
         })
+        // this.setState({
+        //     list:list
+        // })
     }
 }
 export default TodoList;
+
+
+/*
+    React衍生出得思考
+        声明式开发
+        可以与其他框架共存
+        组件化
+        单项数据流
+        视图层框架
+        函数式编程
+
+*/
