@@ -1,13 +1,16 @@
 import React ,{Component} from 'react'
+import PropTypes from 'prop-types';
 class TodoItem extends Component{
     constructor(props){
         super(props);
         this.handleClick = this.handleClick.bind(this);
     }
     render(){
-        const {content }= this.props;
+        const { content ,test}= this.props;
         //render函数返回一个jsx
-        return <li onClick={this.handleClick} >{content}</li>
+        //jsx ->createElement -> 虚拟DOM（JS对象） -> 真实DOM
+        return <li onClick={this.handleClick} >{test}-{content}</li>
+        // return React.createElement('div',{},'item')
     }
     handleClick(){
         console.log(this.props.index);
@@ -15,6 +18,17 @@ class TodoItem extends Component{
         const {index,deleteItem} = this.props;
         deleteItem(index);
     }
+}
+//对父组件传的参数进行校验
+TodoItem.propTypes = {
+    test:PropTypes.string.isRequired,//表示父组件必须要向子组件传递isRequired;
+    content:PropTypes.oneOfType([PropTypes.number,PropTypes.string]),
+    deleteItem:PropTypes.func,
+    index:PropTypes.number
+}
+//默认值设定
+TodoItem.defaultProps = {
+    test:'hello world'
 }
 export default TodoItem;
 //如何进行组件的拆分，父子组件的传参，
@@ -33,4 +47,7 @@ export default TodoItem;
             多线程是指从软件或者硬件上实现多个线程并发执行的技术，他更多的是解决CPU调度多个进程的问题，从而让这些进程看上去是同事执行（实际是交替与逆行的）
             多线程解决的问题是最明确的，手段也是比较单一的，基本上遇到的最大问题就是线程安全
 
+*/
+/*
+    普通对象都是值传递，而对象则是引用传递；
 */

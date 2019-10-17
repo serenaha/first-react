@@ -1,0 +1,54 @@
+1.state 数据
+2.jsx 模板
+3.数据 + 模板 相结合形成真实的DOM来显示
+4.state发生改变
+5.数据 + 模板 结合，生成真实的DOM，替换原始的DOM
+
+
+缺陷：
+第一次生成了一个完整的DOM片段
+第二次生成一个完整的DOM片段
+第二次DOM会替换掉第一次的DOM，非常耗费性能
+1.state 数据
+2.jsx 模板
+3.数据 + 模板相结合形成真实的DOM来显示
+4.state发生改变
+5.数据 + 模板 结合，生成真实的DOM，并不直接替换原始的DOM
+6.新的DOM（DocumentFragment）  和原始的DOM 做对比，找差异
+7.找出input框发生了变化
+8.只用新的DOM中的input元素，替换掉老的DOM中的input元素
+
+
+缺陷
+1.state数据
+
+2.JSX模板
+
+3.数据 + 模板 生成虚拟DOM（虚拟DOM就是一个JS对象，用它来描述真实的DOM）
+    ['div',{id:'abc},['span',{},''hello world']]
+
+4.数据+模板 结合，生成真实的DOM，来显示
+ <div id="abc"><span>hello</span></div>
+
+5.state发生变化
+
+6.数据 + 模板 生成新的虚拟DOM （极大的提升了性能）
+    ['div',{id:'abc},['span',{},''hello world']] 
+
+7.比较原始虚拟DOM和新的虚拟DOM的区别，找到区别是span中的内容
+ 
+8.直接操作DOM，改变span中的内容
+
+Diff, different;
+React的虚拟DOM是同层比对，可使得算法简单，则运算速度会快
+
+
+优点
+ 1.性能提升了。
+ 2.它使得跨端应哟个得以实现。React Native
+
+
+diff算法的作用：
+   计算出Virtual DOM中真正变化的部分，并只针对该部分进行原生DOM 操作，而非重新渲染整个页面
+传统diff算法：
+  通过循环递归对节点进行一次对比，算法复杂度达O(n^3),n是数得节点数

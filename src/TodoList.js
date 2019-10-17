@@ -1,10 +1,12 @@
 import React,{ Component,Fragment}from 'react'
 import './style.css';
 import TodoItem from './TodoItem';
+// import Test from './Test'
 class TodoList extends Component{
     constructor(props){
         //构造函数,最优先执行的函数
         super(props);//super调用父类的构造函数
+        //当组件的state或者props发生改变的时候，render函数就会重新执行
         this.state = {
             inputValue:'',
             list:[],
@@ -23,12 +25,14 @@ class TodoList extends Component{
                        id="insertArea"
                       value={this.state.inputValue} 
                       onChange={this.handleInputChange}
+                      ref={(input)=>{this.input = input}}
                     />
                     <button onClick={this.handleBtnClick}>提交</button>
                 </div>
-                <ul>
+                <ul ref={(ul) =>{this.ul = ul}}>
                    {this.getTodoItem()}
                 </ul>
+                {/* <Test content={this.state.inputValue}/> */}
             </Fragment>
         )
     }
@@ -46,7 +50,8 @@ class TodoList extends Component{
             })
     }
     handleInputChange(event){
-        const value = event.target.value;
+        // const value = event.target.value;
+        const value = this.input.value
         this.setState(()=>({
                 inputValue:value
         }))
@@ -61,7 +66,9 @@ class TodoList extends Component{
         this.setState((prevState)=>({
             list:[...prevState.list,prevState.inputValue],
             inputValue:''
-        }))
+        }),() => {
+            console.log(this.ul.querySelectorAll('li').length);
+        })
         // this.setState({
         //     list:[...this.state.list,this.state.inputValue],
         //     inputValue:''
