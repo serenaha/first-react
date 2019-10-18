@@ -15,7 +15,32 @@ class TodoList extends Component{
         this.handleDelete = this.handleDelete.bind(this);
         this.handleBtnClick = this.handleBtnClick.bind(this);
     }
+    
+    componentWillMount(){
+        //当组件即将被挂载到页面的时刻自动执行
+        console.log('componentWillMount');
+    }
+    componentDidMount(){
+        //组件被挂载到页面之后，自动被执行
+        console.log('componentDidMount');
+    }
+    shouldComponentUpdate(){
+        //组件被更新之前会执行
+        console.log('shouldComponentUpdate');
+        return true;
+    }
+    componentWillUpdate(){
+        //组件被更新之前，他会自动执行，但是在shouldComponentUpdate之后被执行
+        //如果shouldComponentUpdate返回true返回true他才执行
+        //如果返回false，这个函数就不会被执行了
+        console.log('componentWillUpdate');
+    }
+    componentDidUpdate(){
+        //组件更新完成之后，会被执行
+        console.log('componentDidUpdate');
+    }
     render(){
+        console.log('render');
         return (
             <Fragment>
              {/*这是JSX语法的注释*/}

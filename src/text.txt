@@ -52,3 +52,25 @@ diff算法的作用：
    计算出Virtual DOM中真正变化的部分，并只针对该部分进行原生DOM 操作，而非重新渲染整个页面
 传统diff算法：
   通过循环递归对节点进行一次对比，算法复杂度达O(n^3),n是数得节点数
+
+
+
+  生命周期函数指在某一个时可组件会自动调用执行的函数
+
+  Initialization
+
+  Mounting (componentWillMount->render->componentDidMount)
+
+  Updation 
+    props
+
+    states 
+     if(shouldComponentUpdate  == true){
+         componentWillUpdate->render->componentDidUpdate
+     }else{
+         //则不执行下一步
+     }
+
+
+  Unmounting
+
