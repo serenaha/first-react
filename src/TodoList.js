@@ -1,7 +1,6 @@
 import React,{ Component,Fragment}from 'react'
 import './style.css';
 import TodoItem from './TodoItem';
-// import Test from './Test'
 class TodoList extends Component{
     constructor(props){
         //构造函数,最优先执行的函数
@@ -16,31 +15,31 @@ class TodoList extends Component{
         this.handleBtnClick = this.handleBtnClick.bind(this);
     }
     
-    componentWillMount(){
-        //当组件即将被挂载到页面的时刻自动执行
-        console.log('componentWillMount');
-    }
+    // componentWillMount(){
+    //     //当组件即将被挂载到页面的时刻自动执行
+    //     // console.log('componentWillMount');
+    // }
     componentDidMount(){
         //组件被挂载到页面之后，自动被执行
-        console.log('componentDidMount');
+        //在这个生命周期函数中发送ajax请求
     }
     shouldComponentUpdate(){
         //组件被更新之前会执行
-        console.log('shouldComponentUpdate');
+        // console.log('shouldComponentUpdate');
         return true;
     }
-    componentWillUpdate(){
-        //组件被更新之前，他会自动执行，但是在shouldComponentUpdate之后被执行
-        //如果shouldComponentUpdate返回true返回true他才执行
-        //如果返回false，这个函数就不会被执行了
-        console.log('componentWillUpdate');
-    }
+    // componentWillUpdate(){
+    //     //组件被更新之前，他会自动执行，但是在shouldComponentUpdate之后被执行
+    //     //如果shouldComponentUpdate返回true返回true他才执行
+    //     //如果返回false，这个函数就不会被执行了
+    //     // console.log('componentWillUpdate');
+    // }
     componentDidUpdate(){
         //组件更新完成之后，会被执行
-        console.log('componentDidUpdate');
+        // console.log('componentDidUpdate');
     }
     render(){
-        console.log('render');
+        
         return (
             <Fragment>
              {/*这是JSX语法的注释*/}
@@ -57,7 +56,6 @@ class TodoList extends Component{
                 <ul ref={(ul) =>{this.ul = ul}}>
                    {this.getTodoItem()}
                 </ul>
-                {/* <Test content={this.state.inputValue}/> */}
             </Fragment>
         )
     }

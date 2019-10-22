@@ -6,6 +6,7 @@ class TodoItem extends Component{
         this.handleClick = this.handleClick.bind(this);
     }
     render(){
+        console.log('child render');
         const { content ,test}= this.props;
         //render函数返回一个jsx
         //jsx ->createElement -> 虚拟DOM（JS对象） -> 真实DOM
@@ -13,12 +14,31 @@ class TodoItem extends Component{
         // return React.createElement('div',{},'item')
     }
     handleClick(){
-        console.log(this.props.index);
         //当子组件被点击的时候
         const {index,deleteItem} = this.props;
         deleteItem(index);
     }
+    // componentWillReceiveProps(){
+    //     //一个组件要从父组件接受参数
+    //     //只要父组件的render函数被执行,子组件的这个声明周期函数就会被执行
+    //     //如果这个组件第一次存在与父组件中，不会执行
+    //     //如果这个组件之前已经存在于父组件中，才会被执行
+    //     console.log('componentWillReceiveProps');
+    // }
+    // componentWillUnmount(){
+    //     //当这个组件即将被从页面中提出的时候，会被执行
+    //     console.log('child,componentWillUnmount');
+    // }
+    shouldComponentUpdate(nextProps,nextState){
+        if(nextProps.content !== this.props.content){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
 }
+
 //对父组件传的参数进行校验
 TodoItem.propTypes = {
     test:PropTypes.string.isRequired,//表示父组件必须要向子组件传递isRequired;
