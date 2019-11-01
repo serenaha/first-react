@@ -1,6 +1,7 @@
 import React,{ Component,Fragment}from 'react'
 import './style.css';
 import TodoItem from './TodoItem';
+import axios from 'axios';
 class TodoList extends Component{
     constructor(props){
         //构造函数,最优先执行的函数
@@ -13,30 +14,6 @@ class TodoList extends Component{
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleBtnClick = this.handleBtnClick.bind(this);
-    }
-    
-    // componentWillMount(){
-    //     //当组件即将被挂载到页面的时刻自动执行
-    //     // console.log('componentWillMount');
-    // }
-    componentDidMount(){
-        //组件被挂载到页面之后，自动被执行
-        //在这个生命周期函数中发送ajax请求
-    }
-    shouldComponentUpdate(){
-        //组件被更新之前会执行
-        // console.log('shouldComponentUpdate');
-        return true;
-    }
-    // componentWillUpdate(){
-    //     //组件被更新之前，他会自动执行，但是在shouldComponentUpdate之后被执行
-    //     //如果shouldComponentUpdate返回true返回true他才执行
-    //     //如果返回false，这个函数就不会被执行了
-    //     // console.log('componentWillUpdate');
-    // }
-    componentDidUpdate(){
-        //组件更新完成之后，会被执行
-        // console.log('componentDidUpdate');
     }
     render(){
         
@@ -59,6 +36,20 @@ class TodoList extends Component{
             </Fragment>
         )
     }
+    componentDidMount(){
+        //在组件被挂载到页面上的时候，该生命周期函数只执行一次
+        axios.get('/api/todolist')
+        .then(res=>{
+           this.setState(()=>{
+               return {
+                    list:[...res.data]
+               }
+               
+           })
+    
+        })
+        .catch(()=>{alert('error')})
+    }
     getTodoItem(){
         return this.state.list.map((item,index)=>{
                 return (
@@ -73,8 +64,8 @@ class TodoList extends Component{
             })
     }
     handleInputChange(event){
-        // const value = event.target.value;
-        const value = this.input.value
+        const value = event.target.value;
+        // const value = this.input.value
         this.setState(()=>({
                 inputValue:value
         }))
@@ -89,16 +80,9 @@ class TodoList extends Component{
         this.setState((prevState)=>({
             list:[...prevState.list,prevState.inputValue],
             inputValue:''
-        }),() => {
-            console.log(this.ul.querySelectorAll('li').length);
-        })
-        // this.setState({
-        //     list:[...this.state.list,this.state.inputValue],
-        //     inputValue:''
-        // })
+        }))
     }
     handleDelete(index){
-        // console.log(index);
         //immutable
         //state不允许我们做任何的改变
         this.setState((prevState)=>{

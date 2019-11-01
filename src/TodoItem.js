@@ -1,16 +1,16 @@
 import React ,{Component} from 'react'
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 class TodoItem extends Component{
     constructor(props){
         super(props);
         this.handleClick = this.handleClick.bind(this);
     }
     render(){
-        console.log('child render');
-        const { content ,test}= this.props;
+        
+        const { content}= this.props;
         //render函数返回一个jsx
         //jsx ->createElement -> 虚拟DOM（JS对象） -> 真实DOM
-        return <li onClick={this.handleClick} >{test}-{content}</li>
+        return <li onClick={this.handleClick} >{content}</li>
         // return React.createElement('div',{},'item')
     }
     handleClick(){
@@ -18,18 +18,8 @@ class TodoItem extends Component{
         const {index,deleteItem} = this.props;
         deleteItem(index);
     }
-    // componentWillReceiveProps(){
-    //     //一个组件要从父组件接受参数
-    //     //只要父组件的render函数被执行,子组件的这个声明周期函数就会被执行
-    //     //如果这个组件第一次存在与父组件中，不会执行
-    //     //如果这个组件之前已经存在于父组件中，才会被执行
-    //     console.log('componentWillReceiveProps');
-    // }
-    // componentWillUnmount(){
-    //     //当这个组件即将被从页面中提出的时候，会被执行
-    //     console.log('child,componentWillUnmount');
-    // }
     shouldComponentUpdate(nextProps,nextState){
+        //当组件需要被更新的话，询问是否需要更新
         if(nextProps.content !== this.props.content){
             return true;
         }else{
@@ -37,18 +27,6 @@ class TodoItem extends Component{
         }
         
     }
-}
-
-//对父组件传的参数进行校验
-TodoItem.propTypes = {
-    test:PropTypes.string.isRequired,//表示父组件必须要向子组件传递isRequired;
-    content:PropTypes.oneOfType([PropTypes.number,PropTypes.string]),
-    deleteItem:PropTypes.func,
-    index:PropTypes.number
-}
-//默认值设定
-TodoItem.defaultProps = {
-    test:'hello world'
 }
 export default TodoItem;
 //如何进行组件的拆分，父子组件的传参，

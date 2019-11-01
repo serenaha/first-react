@@ -74,3 +74,36 @@ diff算法的作用：
 
   Unmounting
 
+
+//Vue和react的区别
+ 1.react严格上针对的是MVC模式的View层，Vue则是mvvm模式
+ 2.操纵dom的方式不同，vue使用的是指令操作dom,react时通过JS进行操作
+ 3.数据绑定不同，vue实现的是双向绑定，react的数据流动是单项的
+ 4.react中state是不能直接改变的们需要使用setState改变的。vue中的state不是必须的，数据主要是由data属性在vue对象中管理的
+
+
+ React性能优化阶段函数是：ShouldComponentUpdate
+
+ React性能优化的方案
+  1.重写shouldComponentUpdate来避免不必要的dom操作
+  2.使用production版本的react.js
+  3.使用key来帮助React识别列表中所有子组件的最小变化
+
+  介绍一下webpack
+  webpack是一个前端模块打包工具，主要由入口、出口、loader、plugin四个部分。前端的打包工具还有一个gulp，不过gulp侧重于前端开发的过程，
+  而webpack侧重于模块，例如他会将css文件看作一个模块，通过css-loader将css打包成符合css的静态资源
+
+  Es6中箭头函数与普通函数的区别
+  1.普通function的声明在变量提升中是最高的，箭头函数没有函数提升
+  2.箭头函数没有this,arguments
+  3.箭头函数不能作为构造函数，不能被new,没有property
+  4.call和apply方法只有参数，没有作用域
+   
+  展示组件和容器组件的区别
+    展示组件关心组件看起来是什么。展示组件专门通过props接收数据和回调，并且几乎不会有自身的状态，但当展示组件拥有自身的状态时，
+  通常也只关心UI状态而不是数据的状态
+    容器组件则更关心组件是如何运作的。容器组件会为展示组件或者其他容器组件提供数据和行为，他们会调用flux actions,并将其作为回调提供给展示组件
+  容器组件经常是有状态的，因为他们是其他组件的数据源
+
+  
+  
